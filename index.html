@@ -633,4 +633,21 @@ function hpView(){const s=HP.st,P=(a,b)=>b?Math.round(a/b*100):0;
  ${HP.flags.map(f=>`<div class="frow" style="padding:6px 0"><div class="fl"><b>${f.k==='err'?'⛔':f.k==='dud'?'⚠️':'ℹ️'} Nº ${f.n}</b> · ${esc(f.q.length>90?f.q.slice(0,90)+'…':f.q)}<div class="small">${esc(f.t)}</div></div></div>`).join('')}</div>`;
  app.querySelectorAll('[data-act]').forEach(b=>b.onclick=()=>act(b.dataset.act))}
 
-</script></body></html>
+</script><script>
+/* Estadísticas anónimas (GoatCounter, sin cookies) */
+window.goatcounter={no_onload:false};
+(function(){
+ function ev(p,t){try{if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:p,title:t||p,event:true})}catch(e){}}
+ var TN={aca:'Academia',esq:'Esquemas',sala:'Exámenes reales',hp:'Alto %',fin:'Finales',sen:'Señales',jue:'Juegos',est:'Estadísticas'};
+ function wrap(n,f){var o=window[n];if(typeof o!=='function')return;window[n]=function(){try{f.apply(null,arguments)}catch(e){}return o.apply(this,arguments)}}
+ wrap('tab',function(k){if(k!=='aca'||window.__gcInit)ev('pestaña/'+k,'Pestaña: '+(TN[k]||k));window.__gcInit=1});
+ wrap('startQuiz',function(m){ev('academia/'+m,'Academia: '+m)});
+ wrap('finishExam',function(){ev('academia/examen-terminado','Academia: simulacro terminado')});
+ wrap('hpGo',function(m){ev('alto/'+m,'Alto %: '+m)});
+ wrap('finGo',function(m){ev('finales/'+m,'Finales: '+m)});
+ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="esquemas/"]');if(a){var f=decodeURIComponent(a.getAttribute('href').slice(9));ev('pdf/'+f,'PDF: '+f)}},true);
+ wrap('act',function(a){if(a&&a.indexOf('doc:')===0){var f=a.slice(4);ev('pdf/'+f,'PDF: '+f)}});
+})();
+</script>
+<script data-goatcounter="https://salonbravo.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
